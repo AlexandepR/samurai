@@ -13,7 +13,8 @@
 
 .app-wrapper-content {
     grid-area: c;
-    background-color: goldenrod;
+    background-color: #fab403;
+    padding: 10px
 }
 
 .content img {

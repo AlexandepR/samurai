@@ -1,26 +1,38 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
+import Profile from "../Profile";
+// import {PostsType} from "../../../index";
+// import {DialogArrayType} from "../../../index";
+// import {MyPostsType} from "../Profile";
+import {StateType} from '../../../redux/state'
 
+type AppPropsType = {
+    state: StateType
 
-const MyPosts = () => {
-  return (
-      <div>
-          My posts
-          <div>
-              <textarea></textarea>
-              <button>Add post</button>
-          </div>
-          <div className={s.posts}>
-            <Post message='Hi, how are you?' like = '15 like' />
-            <Post message="It's my first post"like ='20 like'/>
-            {/*<Post />*/}
-            {/*<Post />*/}
-            {/*<Post />*/}
-            {/*<Post />*/}
-          </div>
-      </div>
-  )
+}
+
+const MyPosts = (props: AppPropsType) => {
+
+    let postsElements = props.state.profilePostPage.posts.map( p =>
+        <Post message={p.message} likesCount={p.likesCount}/>)
+
+    return (
+        <div className={s.postsBlock}>
+            <h3> My posts </h3>
+            <div>
+                <div>
+                    <textarea></textarea>
+                </div>
+                <div>
+                    <button>Add post</button>
+                </div>
+            </div>
+            <div className={s.posts}>
+                {postsElements}
+            </div>
+        </div>
+    )
 }
 
 export default MyPosts;

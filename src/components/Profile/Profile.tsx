@@ -2,17 +2,21 @@ import React from "react";
 import './Profile.module.css'
 import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {DialogsTextType, MessagesTextType, MyPostsTextType, MyPostsType, StateType} from "../../redux/state";
 
-const Profile = () => {
-  return <div>
-      <img
-          alt=''
-          src="https://www.digiseller.ru/preview/917746/p1_2822191_baa2d3c2.jpg"/>
-      <div>
-          ava + description
-      </div>
-    <MyPosts />
-  </div>
+type AppPropsType = {
+    state: StateType
+}
+
+
+const Profile = (props:AppPropsType) => {
+
+    return <div>
+        <ProfileInfo/>
+        {/*<MyPosts posts={props.posts} dialogs={props.dialogs} messages={props.messages}/>*/}
+        <MyPosts state={props.state}/>
+    </div>
 }
 
 export default Profile;
