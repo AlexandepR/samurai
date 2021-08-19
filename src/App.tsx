@@ -8,28 +8,33 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Settings from "./components/Settings/Settings";
 import News from "./components/News/News";
 import Music from './components/Music/Music'
-import {StateType, DialogsTextType, MessagesTextType, MyPostsTextType, DialogsType} from "./redux/state";
+import {StateType, DialogsTextType, MessagesTextType, MyPostsTextType, DialogsType, state} from "./redux/state";
+import {addPost} from "./redux/state";
+
+
 
 
 type AppPropsType = {
     state: StateType
+    addPost: (postText: string) => void
 }
 
 const App: React.FC <AppPropsType> = (props) => {
 
     return (
         <BrowserRouter>
-            <div className='app-wrapper'>
+            <div className='App'>
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
                            render ={ () => <Dialogs
                                dialogs={props.state.dialogsPage.dialogs}
-                               messages={props.state.messagePage.messages}/> } />
+                               messages={props.state.messagePage.messages} /> } />
                     <Route path='/profile'
                            render={ () => <Profile
-                               state={props.state} /> } />
+                               state={props.state}
+                               addPost={props.addPost} /> } />
 
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
@@ -40,5 +45,70 @@ const App: React.FC <AppPropsType> = (props) => {
     )
 }
 
+// type MessageType = {
+//     message: string
+// }
+
+// function HelloMessage(props: MessageType) {
+//
+//     let postMessageRef = React.createRef();
+//
+//     const addPost = () => {
+//
+//     }
+//     return <div>
+//         {props.message}
+//         <textarea ref={post}></textarea>
+//         <button onClick={addPost}>add post</button>
+//     </div>
+// }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// type AppPropsType = {
+//     state: StateType
+// }
+//
+// const App: React.FC <AppPropsType> = (props) => {
+//
+//     return (
+//         <BrowserRouter>
+//             <div className='app-wrapper'>
+//                 <Header/>
+//                 <Navbar/>
+//                 <div className='app-wrapper-content'>
+//                     <Route path='/dialogs'
+//                            render ={ () => <Dialogs
+//                                dialogs={props.state.dialogsPage.dialogs}
+//                                messages={props.state.messagePage.messages}/> } />
+//                     <Route path='/profile'
+//                            render={ () => <Profile
+//                                state={props.state} /> } />
+//
+//                     <Route path='/news' component={News}/>
+//                     <Route path='/music' component={Music}/>
+//                     <Route path='/settings' component={Settings}/>
+//                 </div>
+//             </div>
+//         </BrowserRouter>
+//     )
+// }
+//
+//
+// export default App;

@@ -9,7 +9,7 @@ import {StateType} from '../../../redux/state'
 
 type AppPropsType = {
     state: StateType
-
+    addPost: (postText: string) => void
 }
 
 const MyPosts = (props: AppPropsType) => {
@@ -17,15 +17,24 @@ const MyPosts = (props: AppPropsType) => {
     let postsElements = props.state.profilePostPage.posts.map( p =>
         <Post message={p.message} likesCount={p.likesCount}/>)
 
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
+
+    let addPost = () => {
+        if (newPostElement.current) {
+        const text = (newPostElement.current.value)
+        props.addPost(text)
+        }
+    }
+
     return (
         <div className={s.postsBlock}>
             <h3> My posts </h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={ addPost }>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

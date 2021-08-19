@@ -19,7 +19,7 @@ export type MessagesType = {
 }
 export type MyPostsType = {
     id: number
-    message: string
+    message: string | undefined
     likesCount: number
 }
 
@@ -57,5 +57,15 @@ export let state:StateType = {
             {id: 5, message: 'Yo'}
         ]
     }
+}
+
+export let addPost = (postText: string) => {
+    const newPost: MyPostsType = {
+        id: new Date().getTime(),
+        message: postText,
+        likesCount: 0
+    }
+    state.profilePostPage.posts.push(newPost);
+    // rerenderEntireTree()
 }
 

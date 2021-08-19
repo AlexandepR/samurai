@@ -7,6 +7,7 @@ import {DialogsTextType, MessagesTextType, MyPostsTextType, MyPostsType, StateTy
 
 type AppPropsType = {
     state: StateType
+    addPost: (postText: string) => void
 }
 
 
@@ -15,7 +16,7 @@ const Profile = (props:AppPropsType) => {
     return <div>
         <ProfileInfo/>
         {/*<MyPosts posts={props.posts} dialogs={props.dialogs} messages={props.messages}/>*/}
-        <MyPosts state={props.state}/>
+        <MyPosts state={props.state} addPost={props.addPost}/>
     </div>
 }
 

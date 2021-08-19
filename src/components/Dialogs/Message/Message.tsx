@@ -9,9 +9,22 @@ type messagesType = {
 
 const Message = (props:messagesType) => {
     return (
+        <div>
         <div className={s.dialog}>{props.message}</div>
+        </div>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 export default Message;
