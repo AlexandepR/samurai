@@ -4,31 +4,28 @@ import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {
-    DialogsTextType,
-    MessagesTextType,
-    MyPostsTextType,
-    MyPostsType, state,
-    StateType,
-    updateNewPostText
+    MyPostsTextType, store,
+    StoreType,
 } from "../../redux/state";
 
 type ProfilePropsType = {
-    state: StateType
+    store: StoreType
     addPost: (postText: string) => void
     profilePostPage: MyPostsTextType
+    updateNewPostText: (newText:string) => void
 }
 
 
 const Profile = (props:ProfilePropsType) => {
-
+    // const state = props.store.getState()
     return <div>
         <ProfileInfo/>
         {/*<MyPosts posts={props.posts} dialogs={props.dialogs} messages={props.messages}/>*/}
         <MyPosts
-            state={props.state}
+            store={props.store}
             addPost={props.addPost}
             newPostText={props.profilePostPage.newPostText}
-            updateNewPostText={updateNewPostText}
+            updateNewPostText={props.store.updateNewPostText.bind(store)}
         />
     </div>
 }

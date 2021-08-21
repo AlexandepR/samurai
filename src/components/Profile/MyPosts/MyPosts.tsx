@@ -5,18 +5,20 @@ import Profile from "../Profile";
 // import {PostsType} from "../../../index";
 // import {DialogArrayType} from "../../../index";
 // import {MyPostsType} from "../Profile";
-import {StateType, updateNewPostText} from '../../../redux/state'
+import {StoreType } from '../../../redux/state'
+
 
 type MyPostType = {
-    state: StateType
+    store: StoreType
     addPost: (postText: string) => void
     updateNewPostText: (newText: string) => void
     newPostText: string
 }
 
 const MyPosts = (props: MyPostType) => {
+    const state = props.store.getState()
 
-    let postsElements = props.state.profilePostPage.posts.map(p =>
+    let postsElements = state.profilePostPage.posts.map(p =>
         <Post message={p.message} likesCount={p.likesCount}/>)
 
     // let newPostElement = React.createRef<HTMLTextAreaElement>();
@@ -36,9 +38,6 @@ const MyPosts = (props: MyPostType) => {
 
     const onPostChange = (e : ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewPostText(e.currentTarget.value)
-        // const text = newPostElement.current.value;
-        // props.updateNewPostText(text);
-
     }
 
     return (

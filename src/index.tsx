@@ -4,29 +4,29 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 // import {sebscribe, state, StateType, updateNewPostText} from "./redux/state";
-import {subscribe, StateType, state, updateNewPostText} from "./redux/state";
-import {addPost} from "./redux/state";
+// import {subscribe, StateType, state, updateNewPostText} from "./redux/state";
+// import {addPost} from "./redux/state";
 import {BrowserRouter} from "react-router-dom";
-
+import {store} from './redux/state'
 
 
 const rerenderTreeChange = () => {
-    alert('rerender2')
     ReactDOM.render(
         <BrowserRouter>
             <App
-                state={state}
-                addPost={addPost}
-                updateNewPostText={updateNewPostText}
+                store={store}
+                addPost={store.addPost}
+                updateNewPostText={store.updateNewPostText}
             />,
         </BrowserRouter>, document.getElementById('root'));
 }
 
-rerenderTreeChange()
+
 // rerenderEntireTree()
 // rerenderTreeChange()
 
-subscribe(rerenderTreeChange);
+store.subscribe.bind(store)(rerenderTreeChange);
+rerenderTreeChange()
 
 reportWebVitals();
 
