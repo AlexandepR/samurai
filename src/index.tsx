@@ -3,20 +3,47 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {state, StateType} from "./redux/state";
+import {state, StateType, updateNewPostText} from "./redux/state";
 import {addPost} from "./redux/state";
+import {BrowserRouter} from "react-router-dom";
 
 
-const rerenderEntireTree = (state: StateType) => {
-    ReactDOM.render (
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
+
+
+export const rerenderEntireTree = (state: StateType) => {
+    ReactDOM.render(
+        <BrowserRouter>
+            <App
+                state={state}
+                addPost={addPost}
+                updateNewPostText={updateNewPostText}
+            />,
+        </BrowserRouter>, document.getElementById('root'));
 }
-rerenderEntireTree(state)
 
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import './index.css';
+// import App from './App';
+// import reportWebVitals from './reportWebVitals';
+// import {state, StateType} from "./redux/state";
+// import {addPost} from "./redux/state";
+//
+//
+// const rerenderEntireTree = (state: StateType) => {
+//     ReactDOM.render (
+//         <React.StrictMode>
+//             <App
+//             state={state}
+//             addPost={addPost}
+//             />
+//         </React.StrictMode>,
+//         document.getElementById('root')
+//     );
+// }
+// rerenderEntireTree(state)
+//
 
 
 // If you want to start measuring performance in your app, pass a function

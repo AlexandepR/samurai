@@ -1,3 +1,4 @@
+import {rerenderEntireTree} from "../index";
 
 export type DialogsTextType = {
     dialogs: Array<DialogsType>
@@ -7,6 +8,7 @@ export type MessagesTextType ={
 }
 export type MyPostsTextType = {
     posts: Array<MyPostsType>
+    newPostText: string
 }
 
 export type DialogsType = {
@@ -36,7 +38,8 @@ export let state:StateType = {
             {id: 2, message: 'It\'s my first post!!!', likesCount: 11},
             {id: 3, message: 'Blabla', likesCount: 11},
             {id: 4, message: 'Dada', likesCount: 11}
-        ]
+        ],
+        newPostText: ''
     },
     dialogsPage: {
     dialogs: [
@@ -67,5 +70,11 @@ export let addPost = (postText: string) => {
     }
     state.profilePostPage.posts.push(newPost);
     // rerenderEntireTree()
+    rerenderEntireTree(state)
 }
 
+export let updateNewPostText = (newText: string) => {
+        state.profilePostPage.newPostText = newText;
+    // rerenderEntireTree()
+    rerenderEntireTree(state)
+}
