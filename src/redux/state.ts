@@ -1,4 +1,9 @@
-import {rerenderEntireTree} from "../index";
+// import {rerenderEntireTree} from "../render";
+// import {rerenderEntireTree} from "../index";
+
+let rerenderTreeChange = () => {
+    // alert('rerenderTreeChange')
+}
 
 export type DialogsTextType = {
     dialogs: Array<DialogsType>
@@ -70,11 +75,22 @@ export let addPost = (postText: string) => {
     }
     state.profilePostPage.posts.push(newPost);
     // rerenderEntireTree()
-    rerenderEntireTree(state)
+    // rerenderTreeChange(state)
+    rerenderTreeChange()
 }
 
 export let updateNewPostText = (newText: string) => {
         state.profilePostPage.newPostText = newText;
     // rerenderEntireTree()
-    rerenderEntireTree(state)
+    rerenderTreeChange()
 }
+
+
+
+
+export const subscribe = (observer: () => void) => {
+    // alert('subscribe')
+    rerenderTreeChange = observer;
+}
+
+export default state

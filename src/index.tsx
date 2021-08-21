@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {state, StateType, updateNewPostText} from "./redux/state";
+// import {sebscribe, state, StateType, updateNewPostText} from "./redux/state";
+import {subscribe, StateType, state, updateNewPostText} from "./redux/state";
 import {addPost} from "./redux/state";
 import {BrowserRouter} from "react-router-dom";
 
 
 
-
-export const rerenderEntireTree = (state: StateType) => {
+const rerenderTreeChange = () => {
+    alert('rerender2')
     ReactDOM.render(
         <BrowserRouter>
             <App
@@ -20,6 +21,37 @@ export const rerenderEntireTree = (state: StateType) => {
             />,
         </BrowserRouter>, document.getElementById('root'));
 }
+
+rerenderTreeChange()
+// rerenderEntireTree()
+// rerenderTreeChange()
+
+subscribe(rerenderTreeChange);
+
+reportWebVitals();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import React from 'react';
@@ -49,4 +81,4 @@ export const rerenderEntireTree = (state: StateType) => {
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
