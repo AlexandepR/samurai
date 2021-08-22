@@ -92,13 +92,18 @@ export const store: StoreType = {
     _rerenderTreeChange () {
         console.log('state changed')
     },
+
+
     subscribe(observer) {
         this._rerenderTreeChange = observer;
     },
     getState() {
         return this._state
-    }
+    },
 
+    dispatch() {
+
+    }
 }
 
 
