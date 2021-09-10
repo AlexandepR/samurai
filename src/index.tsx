@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// import {sebscribe, state, StateType, updateNewPostText} from "./redux/state";
-// import {subscribe, StateType, state, updateNewPostText} from "./redux/state";
-// import {addPost} from "./redux/state";
 import {BrowserRouter} from "react-router-dom";
 import {store} from './redux/state'
 
@@ -15,17 +12,14 @@ const rerenderTreeChange = () => {
         <BrowserRouter>
             <App
                 store={store}
-                addPost={store.addPost}
-                updateNewPostText={store.updateNewPostText}
+                // addPost={store.addPost}
+                // updateNewPostText={store.updateNewPostText}
             />,
         </BrowserRouter>, document.getElementById('root'));
 }
 
 
-// rerenderEntireTree()
-// rerenderTreeChange()
-
-store.subscribe.bind(store)(rerenderTreeChange);
+store.subscribe(rerenderTreeChange);
 rerenderTreeChange()
 
 reportWebVitals();

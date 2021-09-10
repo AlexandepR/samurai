@@ -5,14 +5,19 @@
 export type RootStateType = {
     profilePostPage: MyPostsTextType
     dialogsPage: DialogsTextType
-    messagePage: MessagesTextType
+    // messagePage: MessagesTextType
+    sidebar: SidebarType
 }
+export type SidebarType = {
+
+}
+
 export type DialogsTextType = {
     dialogs: Array<DialogsType>
 }
-export type MessagesTextType ={
-    messages: Array<MessagesType>
-}
+// export type MessagesTextType = {
+//     messages: Array<MessagesType>
+// }
 export type MyPostsTextType = {
     posts: Array<MyPostsType>
     newPostText: string
@@ -23,7 +28,7 @@ export type DialogsType = {
     name: string
 }
 export type MessagesType = {
-    id:number
+    id: number
     message: string
 }
 export type MyPostsType = {
@@ -35,15 +40,32 @@ export type MyPostsType = {
 
 export type StoreType = {
     _state: RootStateType
-    updateNewPostText: (newText: string) => void
-    addPost: (postText: string) => void
+    _rerenderTreeChange: () => void
     subscribe: (observer: () => void) => void
-    _rerenderTreeChange:() => void
-    getState:() => RootStateType
+    getState: () => RootStateType
+    dispatch: (action: ActionsTypes) => void
 }
 
+
+
+export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof chnageNewTextActionCreator>
+
+export const addPostActionCreator = (newPostText:string) => {
+    return {
+        type: ADD_POST,
+        postText: newPostText
+    } as const
+}
+export const chnageNewTextActionCreator = (newText:string) => {
+    return {
+        type: 'CHANGE-NEW-TEXT',
+        newText: newText
+    } as const
+}
+const ADD_POST = 'ADD-POST';
+
 export const store: StoreType = {
-    _state:  {
+    _state: {
         profilePostPage: {
             posts: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 12},
@@ -61,9 +83,9 @@ export const store: StoreType = {
                 {id: 4, name: 'Sasha'},
                 {id: 5, name: 'Victor'},
                 {id: 6, name: 'Valera'}
-            ]
-        },
-        messagePage: {
+            ],
+        // },
+        // messagePage: {
             messages: [
                 {id: 1, message: 'Hi'},
                 {id: 2, message: 'How is your it-kamasutra?'},
@@ -71,37 +93,58 @@ export const store: StoreType = {
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'}
             ]
-        }
+        },
+
+        messages: [
+            {id: 1, message: 'Hi'},
+            {id: 2, message: 'How is your it-kamasutra?'},
+            {id: 3, message: 'Yo'},
+            {id: 4, message: 'Yo'},
+            {id: 5, message: 'Yo'}
+        ]
+        sidebar: {}
+        // newMessage:
     },
-    updateNewPostText (newText: string) {
-        this._state.profilePostPage.newPostText = newText;
-        this._rerenderTreeChange()
-        // rerenderTreeChange()
-    },
-    addPost (postText: string) {
-        const newPost: MyPostsType = {
-            id: new Date().getTime(),
-            message: postText,
-            // message: this._state.profilePostPage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePostPage.posts.push(newPost);
-        this._state.profilePostPage.newPostText = ''
-        this._rerenderTreeChange()
-    },
-    _rerenderTreeChange () {
+    _rerenderTreeChange() {
         console.log('state changed')
-    },
-
-
-    subscribe(observer) {
-        this._rerenderTreeChange = observer;
     },
     getState() {
         return this._state
     },
+    subscribe(observer) {
+        this._rerenderTreeChange = observer;
+    },
+    // updateNewPostText(newText: string) {
+    //     this._state.profilePostPage.newPostText = newText;
+    //     this._rerenderTreeChange()
+    //     // rerenderTreeChange()
+    // },
+    // addPost(postText: string) {
+    //     const newPost: MyPostsType = {
+    //         id: new Date().getTime(),
+    //         message: postText,
+    //         // message: this._state.profilePostPage.newPostText,
+    //         likesCount: 0
+    //     }
+    //     this._state.profilePostPage.posts.push(newPost);
+    //     this._state.profilePostPage.newPostText = ''
+    //     this._rerenderTreeChange()
+    // },
 
-    dispatch() {
+    dispatch(action) {
+        if(action.type === ADD_POST) {
+            const newPost: MyPostsType = {
+                id: new Date().getTime(),
+                message: action.postText,
+                likesCount: 0
+            }
+            this._state.profilePostPage.posts.push(newPost);
+            this._state.profilePostPage.newPostText = ''
+            this._rerenderTreeChange()
+        } else if (action.type === 'CHANGE-NEW-TEXT') {
+            this._state.profilePostPage.newPostText = action.newText;
+            this._rerenderTreeChange()
+        }
 
     }
 }
@@ -110,7 +153,6 @@ export const store: StoreType = {
 // let rerenderTreeChange = () => {
 //     // alert('rerenderTreeChange')
 // }
-
 
 
 // export type StateType = {
@@ -169,41 +211,10 @@ export const store: StoreType = {
 // }
 
 
-
-
 // export const subscribe = (observer: () => void) => {
 //     // alert('subscribe')
 //     rerenderTreeChange = observer;
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //
