@@ -1,5 +1,6 @@
 // import {rerenderEntireTree} from "../render";
 // import {rerenderEntireTree} from "../index";
+import {v1} from "uuid";
 
 
 export type RootStateType = {
@@ -14,10 +15,11 @@ export type SidebarType = {
 
 export type DialogsTextType = {
     dialogs: Array<DialogsType>
+    messages: Array<MessagesType>
+    // newMessageBody: Array<newMessage>
+    newMessageBody: string
 }
-// export type MessagesTextType = {
-//     messages: Array<MessagesType>
-// }
+
 export type MyPostsTextType = {
     posts: Array<MyPostsType>
     newPostText: string
@@ -27,10 +29,16 @@ export type DialogsType = {
     id: number
     name: string
 }
+// export type newMessage = {
+//     id: number
+//     message: string
+// }
+
 export type MessagesType = {
     id: number
     message: string
 }
+
 export type MyPostsType = {
     id: number
     message: string | undefined
@@ -48,7 +56,11 @@ export type StoreType = {
 
 
 
-export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof chnageNewTextActionCreator>
+export type ActionsTypes =
+    ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof chnageNewTextActionCreator> |
+    ReturnType<typeof addNewMessageBodyActionCreator> |
+    ReturnType<typeof sendMessageActionCreator>
 
 export const addPostActionCreator = (newPostText:string) => {
     return {
@@ -62,7 +74,24 @@ export const chnageNewTextActionCreator = (newText:string) => {
         newText: newText
     } as const
 }
+export const  addNewMessageBodyActionCreator = (newTextMessage: string) => {
+    return {
+        type: 'CHANGE-NEW-MESSAGE-TEXT',
+        newTextMessage: newTextMessage
+    } as const
+}
+export const sendMessageActionCreator = (newText:string) => {
+    return {
+        type: 'SEND-MESSAGE',
+        newText: newText
+    } as const
+}
+
+
 const ADD_POST = 'ADD-POST';
+const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
+const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT'
+const SEND_MESSAGE = 'SEND-MESSAGE';
 
 export const store: StoreType = {
     _state: {
@@ -84,26 +113,16 @@ export const store: StoreType = {
                 {id: 5, name: 'Victor'},
                 {id: 6, name: 'Valera'}
             ],
-        // },
-        // messagePage: {
             messages: [
                 {id: 1, message: 'Hi'},
                 {id: 2, message: 'How is your it-kamasutra?'},
                 {id: 3, message: 'Yo'},
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'}
-            ]
+            ],
+            newMessageBody: ''
         },
-
-        messages: [
-            {id: 1, message: 'Hi'},
-            {id: 2, message: 'How is your it-kamasutra?'},
-            {id: 3, message: 'Yo'},
-            {id: 4, message: 'Yo'},
-            {id: 5, message: 'Yo'}
-        ]
         sidebar: {}
-        // newMessage:
     },
     _rerenderTreeChange() {
         console.log('state changed')
@@ -143,9 +162,16 @@ export const store: StoreType = {
             this._rerenderTreeChange()
         } else if (action.type === 'CHANGE-NEW-TEXT') {
             this._state.profilePostPage.newPostText = action.newText;
+            this._rerenderTreeChange();
+        } else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
+            this._state.dialogsPage.newMessageBody = action.newTextMessage;
+            this._rerenderTreeChange()
+        } else if (action.type === 'SEND-MESSAGE') {
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = '';
+            this._state.dialogsPage.messages.push({id: 6, message: body});
             this._rerenderTreeChange()
         }
-
     }
 }
 

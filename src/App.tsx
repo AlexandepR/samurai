@@ -16,8 +16,7 @@ import {store, StoreType} from "./redux/state";
 
 type AppPropsType = {
     store: StoreType
-    // addPost: (postText: string) => void
-    // updateNewPostText: (newText: string) => void
+
 }
 
 const App: React.FC <AppPropsType> = (props) => {
@@ -32,7 +31,10 @@ const App: React.FC <AppPropsType> = (props) => {
                     <Route path='/dialogs'
                            render ={ () => <Dialogs
                                dialogs={state.dialogsPage.dialogs}
-                               messages={state.messagePage.messages} /> } />
+                               messages={state.dialogsPage.messages}
+                               newMessageBody={state.dialogsPage.newMessageBody}
+                               dispatch={props.store.dispatch.bind(props.store)}
+                           /> } />
                     <Route path='/profile'
                            render={ () => <Profile
                                store={props.store}
