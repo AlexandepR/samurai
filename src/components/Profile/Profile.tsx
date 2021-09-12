@@ -7,7 +7,7 @@ import {
     ActionsTypes,
     MyPostsTextType, store,
     StoreType,
-} from "../../redux/state";
+} from "../../redux/store";
 
 type ProfilePropsType = {
     store: StoreType

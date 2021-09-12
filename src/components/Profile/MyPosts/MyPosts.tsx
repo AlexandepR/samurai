@@ -5,7 +5,8 @@ import Profile from "../Profile";
 // import {PostsType} from "../../../index";
 // import {DialogArrayType} from "../../../index";
 // import {MyPostsType} from "../Profile";
-import {ActionsTypes, addPostActionCreator, StoreType} from '../../../redux/state'
+import {ActionsTypes,  StoreType} from '../../../redux/store'
+import {addPostActionCreator} from "../../../redux/profile-reducer";
 
 
 type MyPostType = {
