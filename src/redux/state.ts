@@ -1,6 +1,9 @@
 // import {rerenderEntireTree} from "../render";
 // import {rerenderEntireTree} from "../index";
 import {v1} from "uuid";
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 
 export type RootStateType = {
@@ -64,7 +67,7 @@ export type ActionsTypes =
 
 export const addPostActionCreator = (newPostText:string) => {
     return {
-        type: ADD_POST,
+        type: 'ADD-POST',
         postText: newPostText
     } as const
 }
@@ -88,10 +91,10 @@ export const sendMessageActionCreator = (newText:string) => {
 }
 
 
-const ADD_POST = 'ADD-POST';
-const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT'
-const SEND_MESSAGE = 'SEND-MESSAGE';
+// const ADD_POST = 'ADD-POST';
+// const CHANGE_NEW_TEXT = 'CHANGE-NEW-TEXT'
+// const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT'
+// const SEND_MESSAGE = 'SEND-MESSAGE';
 
 export const store: StoreType = {
     _state: {
@@ -151,27 +154,34 @@ export const store: StoreType = {
     // },
 
     dispatch(action) {
-        if(action.type === ADD_POST) {
-            const newPost: MyPostsType = {
-                id: new Date().getTime(),
-                message: action.postText,
-                likesCount: 0
-            }
-            this._state.profilePostPage.posts.push(newPost);
-            this._state.profilePostPage.newPostText = ''
-            this._rerenderTreeChange()
-        } else if (action.type === 'CHANGE-NEW-TEXT') {
-            this._state.profilePostPage.newPostText = action.newText;
-            this._rerenderTreeChange();
-        } else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
-            this._state.dialogsPage.newMessageBody = action.newTextMessage;
-            this._rerenderTreeChange()
-        } else if (action.type === 'SEND-MESSAGE') {
-            let body = this._state.dialogsPage.newMessageBody;
-            this._state.dialogsPage.newMessageBody = '';
-            this._state.dialogsPage.messages.push({id: 6, message: body});
-            this._rerenderTreeChange()
-        }
+
+       this._state.profilePostPage =  profileReducer(this._state.profilePostPage, action);
+       this._state.dialogsPage =  dialogsReducer(this._state.dialogsPage, action);
+       this._state.sidebar =  sidebarReducer(this._state.sidebar, action);
+
+        this._rerenderTreeChange()
+
+        // if(action.type === 'ADD-POST') {
+        //     const newPost: MyPostsType = {
+        //         id: new Date().getTime(),
+        //         message: action.postText,
+        //         likesCount: 0
+        //     }
+        //     this._state.profilePostPage.posts.push(newPost);
+        //     this._state.profilePostPage.newPostText = ''
+        //     this._rerenderTreeChange()
+        // } else if (action.type === 'CHANGE-NEW-TEXT') {
+        //     this._state.profilePostPage.newPostText = action.newText;
+        //     this._rerenderTreeChange();
+        // } else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
+        //     this._state.dialogsPage.newMessageBody = action.newTextMessage;
+        //     this._rerenderTreeChange()
+        // } else if (action.type === 'SEND-MESSAGE') {
+        //     let body = this._state.dialogsPage.newMessageBody;
+        //     this._state.dialogsPage.newMessageBody = '';
+        //     this._state.dialogsPage.messages.push({id: 6, message: body});
+        //     this._rerenderTreeChange()
+        // }
     }
 }
 

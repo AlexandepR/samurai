@@ -1,0 +1,22 @@
+import {MyPostsType} from "./state";
+
+
+export const profileReducer = (state, action) => {
+    switch (action.type) {
+        case 'ADD-POST':
+            const newPost: MyPostsType = {
+                id: new Date().getTime(),
+                message: action.postText,
+                likesCount: 0
+            };
+            state.posts.push(newPost)
+            state.profilePostPage.newPostText = '';
+            return state;
+
+        case 'CHANGE-NEW-TEXT':
+            state.newPostText = action.newText;
+            return state;
+        default:
+            return state;
+    }
+}
