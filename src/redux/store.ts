@@ -55,30 +55,7 @@ export type ActionsTypes =
     ReturnType<typeof addNewMessageBodyActionCreator> |
     ReturnType<typeof sendMessageActionCreator>
 
-// export const addPostActionCreator = (newPostText:string) => {
-//     return {
-//         type: 'ADD-POST',
-//         postText: newPostText
-//     } as const
-// }
-// export const changeNewTextActionCreator = (newText:string) => {
-//     return {
-//         type: 'CHANGE-NEW-TEXT',
-//         newText: newText
-//     } as const
-// }
-// export const  addNewMessageBodyActionCreator = (newTextMessage: string) => {
-//     return {
-//         type: 'CHANGE-NEW-MESSAGE-TEXT',
-//         newTextMessage: newTextMessage
-//     } as const
-// }
-// export const sendMessageActionCreator = (newText:string) => {
-//     return {
-//         type: 'SEND-MESSAGE',
-//         newText: newText
-//     } as const
-// }
+
 
 
 export const store: StoreType = {

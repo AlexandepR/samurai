@@ -1,10 +1,4 @@
-import {MyPostsType, RootStateType} from "./store";
 
-
-// type ActionType = {
-//     type: string
-//     newTextMessage: string
-// }
 
 export const  addNewMessageBodyActionCreator = (newTextMessage: string) => {
     return {
@@ -38,7 +32,6 @@ let initialState = {
     newMessageBody: ''
 
 }
-
 
 
 

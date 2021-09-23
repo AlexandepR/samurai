@@ -1,13 +1,5 @@
 import {DialogsTextType, MyPostsTextType, MyPostsType, RootStateType, SidebarType} from "./store";
 
-//  type ActionType = {
-//     type: string
-//      postText: string
-//      newText: string
-// }
-// type StateType = {
-//
-// }
 
 let initialState = {
     posts: [
