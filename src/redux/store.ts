@@ -1,4 +1,3 @@
-import {v1} from "uuid";
 import {addPostActionCreator, changeNewTextActionCreator, profileReducer} from "./profile-reducer";
 import {addNewMessageBodyActionCreator, dialogsReducer, sendMessageActionCreator} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
@@ -19,8 +18,7 @@ export type DialogsTextType = {
     messages: Array<MessagesType>
     newMessageBody: string
 }
-export type SidebarType = {
-}
+export type SidebarType = {}
 
 export type DialogsType = {
     id: number
@@ -48,14 +46,11 @@ export type StoreType = {
 }
 
 
-
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof changeNewTextActionCreator> |
     ReturnType<typeof addNewMessageBodyActionCreator> |
     ReturnType<typeof sendMessageActionCreator>
-
-
 
 
 export const store: StoreType = {
@@ -102,44 +97,14 @@ export const store: StoreType = {
 
     dispatch(action) {
 
-       this._state.profilePostPage =  profileReducer(this._state.profilePostPage, action);
-       this._state.dialogsPage =  dialogsReducer(this._state.dialogsPage, action);
-       this._state.sidebar =  sidebarReducer(this._state.sidebar, action);
+        this._state.profilePostPage = profileReducer(this._state.profilePostPage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
         this._rerenderTreeChange()
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // let rerenderTreeChange = () => {

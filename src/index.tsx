@@ -4,10 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import {store} from './redux/store'
+import {RootStateType, store} from './redux/store'
 
 
 const rerenderTreeChange = () => {
+
     ReactDOM.render(
         <BrowserRouter>
             <App
@@ -18,18 +19,22 @@ const rerenderTreeChange = () => {
         </BrowserRouter>, document.getElementById('root'));
 }
 
-
+// rerenderTreeChange(store.getState())
+//
 // store.subscribe(rerenderTreeChange);
 // rerenderTreeChange(store.getState());   ///42 lesson
-// store.subscribe(() => {
-//     rerenderTreeChange(state);
-// })
-// reportWebVitals();
 
+// store.subscribe(() => {
+//     rerenderTreeChange(store.getState());
+// })
+// rerenderTreeChange()
 
 
 store.subscribe(rerenderTreeChange);
 rerenderTreeChange()
+
+
+
 
 reportWebVitals();
 
@@ -37,6 +42,46 @@ reportWebVitals();
 
 
 
+
+
+// store.subscribe(rerenderTreeChange);
+// rerenderTreeChange()
+//
+// reportWebVitals();
+
+
+
+
+
+
+
+// const rerenderTreeChange = (state: RootStateType) => {
+//
+//     ReactDOM.render(
+//         <BrowserRouter>
+//             <App
+//                 store={store}
+//                 // addPost={store.addPost}
+//                 // updateNewPostText={store.updateNewPostText}
+//             />,
+//         </BrowserRouter>, document.getElementById('root'));
+// }
+//
+// rerenderTreeChange(store.getState())
+//
+// store.subscribe(rerenderTreeChange);
+// rerenderTreeChange(store.getState());   ///42 lesson
+// store.subscribe(() => {
+//     rerenderTreeChange(state);
+// })
+// reportWebVitals();
+//
+//
+// //
+// // store.subscribe(rerenderTreeChange);
+// // rerenderTreeChange()
+// //
+// // reportWebVitals();
 
 
 
