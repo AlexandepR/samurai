@@ -1,57 +1,40 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import Profile from "../Profile";
-// import {PostsType} from "../../../index";
-// import {DialogArrayType} from "../../../index";
-// import {MyPostsType} from "../Profile";
-import {ActionsTypes,  StoreType} from '../../../redux/store'
-import {addPostActionCreator} from "../../../redux/profile-reducer";
+import {MyPostsType} from '../../../redux/store'
+
 
 
 type MyPostType = {
-    store: StoreType
-    // addPost: (postText: string) => void
-    // updateNewPostText: (newText: string) => void
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
+    updateNewPostText: (text: string) => void
+    addPost: () => void
+    posts: Array<MyPostsType>
 }
 
 
-
-
 const MyPosts = (props: MyPostType) => {
-    const state = props.store.getState()
 
-    let postsElements = state.profilePostPage.posts.map(p =>
+
+    let postsElements = props.posts.map(p =>
         <Post message={p.message} likesCount={p.likesCount}/>)
 
-    // let newPostElement = React.createRef<HTMLTextAreaElement>();
-    // let addPost = () => {
-    //     if (newPostElement.current) {
-    //         const text = (newPostElement.current.value);
-    //         props.addPost(text);
-    //         props.updateNewPostText('');
-    //     }
-    // }
-    // let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator(props.newPostText));
+    let onAddPost = () => {
+        props.addPost()
     }
 
 
-    const onPostChange = (e : ChangeEvent<HTMLTextAreaElement>) => {
-        // props.updateNewPostText(e.currentTarget.value)
-        props.dispatch({type: 'CHANGE-NEW-TEXT', newText: e.currentTarget.value})
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value)
     }
+
 
     return (
         <div className={s.postsBlock}>
             <h3> My posts </h3>
             <div>
                 <div>
-
                     <textarea
                         onChange={onPostChange}
                         value={props.newPostText}
@@ -59,7 +42,7 @@ const MyPosts = (props: MyPostType) => {
                     ></textarea>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

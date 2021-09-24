@@ -4,32 +4,31 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from './Message/Message';
 // import {DialogArrayType} from "../../index";
 // import {dialogsPage} from "../../redux";
-import {ActionsTypes, DialogsType, MessagesType,} from "../../redux/store";
+import {ActionsTypes, DialogsTextType, DialogsType, MessagesType,} from "../../redux/store";
 import {sendMessageActionCreator} from "../../redux/dialogs-reducer";
 
 
 type DialogsMessageType = {
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
-    newMessageBody: string
-    dispatch: (action: ActionsTypes) => void
+
+    updateNewMessageBody: (text: string) => void
+    sendMessage: () => void
+    dialogsPage: DialogsTextType
 }
 
-const Dialogs = (props:DialogsMessageType) => {
+const Dialogs = (props: DialogsMessageType) => {
+    let state = props.dialogsPage
 
-    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id} /> );
-    let messagesElements = props.messages.map( m => <Message message={m.message}/> );
-    let newMessageBody = props.newMessageBody;
-
-    // let addMessageRef = createRef<HTMLTextAreaElement>()
-
+    let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
+    let messagesElements = state.messages.map(m => <Message message={m.message}/>);
+    let newMessageBody = state.newMessageBody;
 
     const onSendMessageClick = () => {
-        props.dispatch(sendMessageActionCreator(props.newMessageBody) )
+        props.sendMessage();
     }
 
-    const onNewMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch ({type: 'CHANGE-NEW-MESSAGE-TEXT', newTextMessage: e.currentTarget.value})
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const body = e.currentTarget.value
+        props.updateNewMessageBody(body)
     }
 
     return (
@@ -44,7 +43,9 @@ const Dialogs = (props:DialogsMessageType) => {
                         value={newMessageBody}
                         onChange={onNewMessageChange}
                         placeholder='Enter you message'></textarea></div>
-                    <div><button onClick={onSendMessageClick}>Send</button></div>
+                    <div>
+                        <button onClick={onSendMessageClick}>Send</button>
+                    </div>
                 </div>
             </div>
             {/*<textarea ref={addMessageRef}>+++</textarea><br></br>*/}
