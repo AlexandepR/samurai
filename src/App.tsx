@@ -13,13 +13,15 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 
-type AppPropsType = {
-    store: StoreType
+// type AppPropsType = {
+//     store: StoreType
+//
+// }
 
-}
-
-const App: React.FC <AppPropsType> = (props) => {
-    const state = props.store.getState()
+// const App: React.FC <AppPropsType> = (props) => {
+// const state = props.store.getState()
+const App= () => {
+    const state = store.getState()
 
     return (
         <BrowserRouter>
@@ -30,11 +32,11 @@ const App: React.FC <AppPropsType> = (props) => {
                     <Route path='/dialogs'
                            render ={ () => <DialogsContainer
                                dialogsPage={ state.dialogsPage }
-                               store={props.store}
+                               store={store}
                            /> } />
                     <Route path='/profile'
                            render={ () => <Profile
-                               store={props.store}
+                               store={store}
                            /> } />
 
                     <Route path='/news' component={News}/>

@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {RootStateType, store, StoreType} from './redux/store'
-import StoreContext, {Provider} from "./StoreContext";
-
+import {Provider} from "react-redux";
+// import StoreContext, {Provider} from "./StoreContext";
 
 
 const rerenderTreeChange = () => {
@@ -14,13 +14,13 @@ const rerenderTreeChange = () => {
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
-                <App />
+                <App/>
             </Provider>
             {/*<App*/}
             {/*    store={store}*/}
             {/*/>,*/}
-
-        </BrowserRouter>, document.getElementById('root'));
+        </BrowserRouter>,
+        document.getElementById('root'));
 }
 
 // rerenderTreeChange(store.getState())
@@ -38,25 +38,13 @@ store.subscribe(rerenderTreeChange);
 rerenderTreeChange()
 
 
-
-
 reportWebVitals();
-
-
-
-
-
 
 
 // store.subscribe(rerenderTreeChange);
 // rerenderTreeChange()
 //
 // reportWebVitals();
-
-
-
-
-
 
 
 // const rerenderTreeChange = (state: RootStateType) => {
@@ -86,24 +74,6 @@ reportWebVitals();
 // // rerenderTreeChange()
 // //
 // // reportWebVitals();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // import React from 'react';
